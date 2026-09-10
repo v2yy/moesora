@@ -394,6 +394,11 @@ spec:
           value: 5
           min: 0
         - $formkit: text
+          name: links_sub_text
+          label: 友链页-副标题文案
+          help: 友链页标题下方的小字；留空则随机显示内置的一句文案，填写后固定显示该文案
+          value: ""
+        - $formkit: text
           name: weather_city
           label: 时间天气-城市
           help: 「时间天气」组件显示的城市，如 芜湖、上海、北京。留空则按访客 IP 自动定位当前城市。需先在上方左/右栏模块里添加「时间天气」
@@ -494,10 +499,27 @@ spec:
           options:
             - { label: "开启", value: true }
             - { label: "关闭", value: false }
+        - $formkit: select
+          name: music_platform
+          label: 音乐-平台
+          value: "netease"
+          options:
+            - { label: "网易云音乐", value: "netease" }
+            - { label: "QQ音乐", value: "tencent" }
+            - { label: "酷狗音乐", value: "kugou" }
+        - $formkit: select
+          name: music_type
+          label: 音乐-类型
+          value: "playlist"
+          options:
+            - { label: "歌单", value: "playlist" }
+            - { label: "单曲", value: "song" }
+            - { label: "专辑", value: "album" }
+            - { label: "歌手", value: "artist" }
         - $formkit: text
-          name: netease_playlist_id
-          label: 音乐-网易云歌单 ID
-          help: "歌单链接里 playlist?id= 后面的数字"
+          name: music_id
+          label: 音乐-ID
+          help: "对应歌单/单曲/专辑/歌手页链接里 id= 后面的数字"
         - $formkit: select
           name: music_float
           label: 音乐播放器-显示方式

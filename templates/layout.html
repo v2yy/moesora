@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--
+  Halo「页面布局契约」适配文件。
+
+  Halo 允许插件提供的页面通过引用主题的 `layout :: html(head, content)` 片段，
+  让插件自己的页面套上当前主题的整体外观（顶栏/侧栏/页脚等），而不是退回 Halo
+  自带的通用兜底布局。这个片段名字、参数名（head、content）都是 Halo 那边定死的
+  契约，不能改，具体见 Halo 核心源码 run.halo.app.theme.PageLayoutContract。
+
+  这里直接复用 Moesora 自己已有的整页布局(modules/layout.html :: layout)来渲染，
+  保证插件页面和主题其余页面视觉上一致。因为 modules/layout 目前的片段签名里
+  没有单独预留"插件自定义 head 内容"的插槽，所以调用方传入的 head 参数目前不会
+  被特别处理（既不会报错，也不会生效）；主题自身的标题/样式/脚本等标准 head
+  内容仍然会正常输出。如果后续有插件明确需要用到这部分自定义 head 内容，
+  再单独扩展 modules/head.html 的片段签名来支持。
+-->
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <th:block th:fragment="html(head, content)"
+            th:replace="~{modules/layout :: layout(content=${content}, hero=~{}, isHome=false)}"></th:block>
+</body>
+</html>

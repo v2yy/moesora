@@ -66,9 +66,11 @@
   <!-- 全局悬浮音乐播放器：放在 #moe-pjax 外，Pjax 切页不中断播放；点 🎵 浮标弹出播放器 -->
   <div class="moe-music-float" id="moe-music-float"
        th:if="${(theme.config.sidebar?.music_enable ?: false) and (theme.config.sidebar?.music_float ?: false)}">
-    <div class="moe-music-float-body">
-      <meting-js server="netease" type="playlist"
-                 th:attr="id=${theme.config.sidebar?.netease_playlist_id}"
+    <div class="moe-music-float-body"
+         th:with="_mPlat=${theme.config.sidebar?.music_platform ?: 'netease'},
+                  _mType=${theme.config.sidebar?.music_type ?: 'playlist'},
+                  _mId=${theme.config.sidebar?.music_id}">
+      <meting-js th:attr="server=${_mPlat},type=${_mType},id=${_mId}"
                  fixed="false" mini="false" autoplay="false" order="list" preload="none"
                  list-folded="true" list-max-height="200px"></meting-js>
     </div>

@@ -99,10 +99,12 @@
 
   <!-- 音乐播放器（侧栏模式：仅在未开启"悬浮"时显示） -->
   <section th:case="'music'" class="moe-card moe-music-card"
-           th:if="${(theme.config.sidebar?.music_enable ?: false) and !(theme.config.sidebar?.music_float ?: false)}">
+           th:if="${(theme.config.sidebar?.music_enable ?: false) and !(theme.config.sidebar?.music_float ?: false)}"
+           th:with="_mPlat=${theme.config.sidebar?.music_platform ?: 'netease'},
+                    _mType=${theme.config.sidebar?.music_type ?: 'playlist'},
+                    _mId=${theme.config.sidebar?.music_id}">
     <h4 class="moe-card-title"><span class="moe-title-ico"><th:block th:replace="~{modules/icons :: icon('music')}"></th:block></span>音乐</h4>
-    <meting-js server="netease" type="playlist"
-               th:attr="id=${theme.config.sidebar?.netease_playlist_id}"
+    <meting-js th:attr="server=${_mPlat},type=${_mType},id=${_mId}"
                fixed="false" mini="false" autoplay="false" order="list" preload="none"
                list-folded="true" list-max-height="180px"></meting-js>
   </section>
@@ -377,13 +379,20 @@
         if(elAuthor) elAuthor.textContent = from ? ("—— " + from) : "";
       }
 
+      var pendingCtrl = null;
+
       function loadFromApi(){
         if(elText) elText.textContent = "句子加载中…";
         if(elAuthor) elAuthor.textContent = "";
-        fetch(api, { cache: "no-store" })
+        if(pendingCtrl){ pendingCtrl.abort(); }
+        var ctrl = (typeof AbortController !== "undefined") ? new AbortController() : null;
+        pendingCtrl = ctrl;
+        var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 5000) : null;
+        fetch(api, { cache: "no-store", signal: ctrl ? ctrl.signal : undefined })
           .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
-          .then(renderApiResult)
+          .then(function(j){ if(timer) clearTimeout(timer); renderApiResult(j); })
           .catch(function(){
+            if(timer) clearTimeout(timer);
             if(mode === "api_fallback"){ renderCustom(); }
             else {
               if(elText) elText.textContent = "一言获取失败，请稍后重试";

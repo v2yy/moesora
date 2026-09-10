@@ -44,9 +44,12 @@ Moesora 是一款面向二次元 / ACG 爱好者的 Halo 2.x 博客主题，强�
 - [x] 评论系统：内置评论 / Twikoo / Waline，客户端已内置打包，无需额外引入 CDN
 - [x] 留言墙自定义页面（访客可写的便签留言墙，基于评论系统）
 - [x] 恋爱墙 / 在一起时长展示
+- [x] 每日一言：支持自定义语句、调用兼容 API 接口、或"接口优先失败自动回退自定义语句"三种模式
+- [x] 音乐播放器：支持网易云音乐 / QQ音乐 / 酷狗音乐，可选歌单 / 单曲 / 专辑 / 歌手，悬浮或侧栏卡片两种展示方式
+- [x] 时间天气侧栏组件（可指定城市或访客定位）
 - [x] 原创二次元背景特效 + 点击特效 + 鼠标拖尾
 - [x] 可选 Live2D 看板娘（模型地址自备，运行库走 CDN、不占主题体积）
-- [x] 侧边栏布局可选：三列 / 仅左 / 仅右
+- [x] 侧边栏布局可选：三列 / 仅左 / 仅右；移动端可单独配置侧栏模块与顺序，配合右侧抽屉导航
 - [x] 文章封面视差
 - [x] 正文视频 / 音频播放器增强（支持 mp4 / m3u8）
 - [x] KaTeX 数学公式
@@ -55,7 +58,7 @@ Moesora 是一款面向二次元 / ACG 爱好者的 Halo 2.x 博客主题，强�
 - [x] 站外链接跳转确认页
 - [x] 客户端随机生成的几何头像（默认评论头像，纯本地、无第三方请求）
 - [x] 404 等错误页面
-- [x] 适配 Halo 2.x 友链、图库、瞬间等插件页面
+- [x] 适配 Halo 2.x 友链、图库、瞬间等插件页面；友链页面额外适配 `plugin-links` 2.3.0+ 的访客自助申请功能
 
 > 上述功能大部分均可在 `后台 -> 外观 -> 主题 -> 设置` 中开关与配置。
 
@@ -71,7 +74,7 @@ Moesora 是一款面向二次元 / ACG 爱好者的 Halo 2.x 博客主题，强�
 | 归档 | `archives.html` | 按时间归档 |
 | 分类 | `categories.html` / `category.html` | 分类列表 / 分类详情 |
 | 标签 | `tags.html` / `tag.html` | 标签列表 / 标签详情 |
-| 友链 | `links.html` | 需 `plugin-links` |
+| 友链 | `links.html` | 需 `plugin-links`；访客自助申请功能需 `plugin-links` 2.3.0+ |
 | 图库 | `photos.html` | 需 `plugin-photos` |
 | 瞬间 | `moments.html` / `moment.html` | 需 `plugin-moments` |
 | 留言墙 | `page_wishes.html` | 自定义模板，单页 slug 建议设为 `wishes` |
@@ -84,7 +87,7 @@ Moesora 是一款面向二次元 / ACG 爱好者的 Halo 2.x 博客主题，强�
 - 评论功能：[plugin-comment-widget](https://github.com/halo-sigs/plugin-comment-widget)（或在主题设置中改用内置的 Twikoo / Waline）
 - 搜索功能：[plugin-search-widget](https://github.com/halo-sigs/plugin-search-widget)
 - 流程图 / 文本绘图：[plugin-text-diagram](https://github.com/halo-sigs/plugin-text-diagram)
-- 友链页面：[plugin-links](https://github.com/halo-sigs/plugin-links)
+- 友链页面：[plugin-links](https://github.com/halo-sigs/plugin-links)（2.3.0+ 版本额外支持访客自助申请友链）
 - 图库页面：[plugin-photos](https://github.com/halo-sigs/plugin-photos)
 - 瞬间页面：[plugin-moments](https://github.com/halo-sigs/plugin-moments)
 
@@ -92,6 +95,7 @@ Moesora 是一款面向二次元 / ACG 爱好者的 Halo 2.x 博客主题，强�
 
 | 主题版本 | 适配 Halo 版本 | 测试用 Halo 版本 |
 | --- | --- | --- |
+| 1.1.x | 2.14.0+ | 2.x |
 | 1.0.x | 2.14.0+ | 2.x |
 
 ## 七、安装 & 更新

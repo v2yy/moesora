@@ -307,6 +307,37 @@ a.moe-stat:hover .moe-stat-num{color:var(--moe-theme)}
 .moe-link-desc{font-size:12px;color:var(--moe-muted);margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .moe-links-apply{text-align:center}
 .moe-links-apply p{margin:8px 0 0;font-size:13px;color:var(--moe-muted);line-height:1.7}
+
+/* 友链自助申请 */
+.moe-link-apply-tip{padding:14px 18px;font-size:14px;text-align:center}
+.moe-link-apply-tip.is-success{color:#2fa86a;border-color:color-mix(in srgb,#2fa86a 40%,var(--moe-border))}
+.moe-link-apply-tip.is-error{color:#e0567c;border-color:color-mix(in srgb,#e0567c 40%,var(--moe-border))}
+.moe-link-apply-hint{margin:2px 0 14px;font-size:13px;color:var(--moe-muted)}
+.moe-link-apply-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}
+.moe-field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.moe-field-wide{grid-column:1 / -1}
+.moe-field-label{font-size:12.5px;color:var(--moe-muted)}
+.moe-field-input{width:100%;padding:9px 12px;border:1px solid var(--moe-border);border-radius:10px;
+  background:var(--moe-bg-2);color:var(--moe-text);font-size:14px;font-family:inherit;line-height:1.5;
+  transition:border-color .2s ease,box-shadow .2s ease}
+.moe-field-input:focus{outline:none;border-color:var(--moe-theme);box-shadow:0 0 0 3px color-mix(in srgb,var(--moe-theme) 20%,transparent)}
+textarea.moe-field-input{resize:vertical;min-height:44px}
+.moe-field-captcha{grid-column:1 / -1}
+.moe-link-apply-captcha-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.moe-link-apply-captcha-row img{border-radius:8px;border:1px solid var(--moe-border);background:#fff;flex:none}
+.moe-link-apply-captcha-refresh{flex:none;width:32px;height:32px;border:1px solid var(--moe-border);border-radius:8px;
+  background:var(--moe-bg-2);color:var(--moe-muted);cursor:pointer;font-size:16px;line-height:1;
+  transition:transform .3s ease,color .2s ease}
+.moe-link-apply-captcha-refresh:hover{color:var(--moe-theme)}
+.moe-link-apply-captcha-refresh:active{transform:rotate(180deg)}
+.moe-link-apply-captcha-row .moe-field-input{flex:1 1 140px;min-width:100px}
+.moe-link-apply-submit{grid-column:1 / -1;justify-self:start;padding:9px 28px;border:none;border-radius:999px;
+  background:var(--moe-theme);color:#fff;font-size:14px;font-weight:600;cursor:pointer;
+  transition:transform .2s cubic-bezier(.34,1.5,.5,1),box-shadow .2s ease}
+.moe-link-apply-submit:hover{transform:translateY(-2px);box-shadow:0 8px 18px color-mix(in srgb,var(--moe-theme) 40%,transparent)}
+@media(max-width:560px){
+  .moe-link-apply-grid{grid-template-columns:1fr}
+}
 .moe-avatar-c0{background:linear-gradient(135deg,#ff9ec4,#ff6fa5)}
 .moe-avatar-c1{background:linear-gradient(135deg,#ffcf8b,#ff9f6b)}
 .moe-avatar-c2{background:linear-gradient(135deg,#8be3c3,#43c59e)}
