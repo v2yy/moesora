@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{modules/layout :: layout(content=~{::content}, hero=~{}, isHome=false)}">
+<body>
+<th:block th:fragment="content">
+  <div class="moe-page-head moe-card moe-fancy-head">
+    <div class="moe-halo"><b class="moe-halo-num" th:text="${bangumis.total}">0</b><small>部番</small></div>
+    <div class="moe-fancy-head-text">
+      <h1 class="moe-page-title"><span class="moe-page-title-icon">📺</span><span>我的追番</span></h1>
+      <p class="moe-links-sub">数据来自 bilibili 追番清单 ♪(´▽｀)</p>
+    </div>
+  </div>
+
+  <!-- 筛选：类型(1追番/2追剧) x 状态(0全部/1想看/2在看/3已看) -->
+  <div class="moe-card" style="margin-bottom:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;">
+      <span style="opacity:.7;">类型</span>
+      <a th:href="@{/bangumis(typeNum=1,status=${bangumis.status})}" class="moe-btn" th:classappend="${bangumis.typeNum==1}?' is-active':''">番剧</a>
+      <a th:href="@{/bangumis(typeNum=2,status=${bangumis.status})}" class="moe-btn" th:classappend="${bangumis.typeNum==2}?' is-active':''">剧集</a>
+      <span style="opacity:.7;margin-left:1rem;">状态</span>
+      <a th:href="@{/bangumis(typeNum=${bangumis.typeNum},status=0)}" class="moe-btn" th:classappend="${bangumis.status==0}?' is-active':''">全部</a>
+      <a th:href="@{/bangumis(typeNum=${bangumis.typeNum},status=1)}" class="moe-btn" th:classappend="${bangumis.status==1}?' is-active':''">想看</a>
+      <a th:href="@{/bangumis(typeNum=${bangumis.typeNum},status=2)}" class="moe-btn" th:classappend="${bangumis.status==2}?' is-active':''">在看</a>
+      <a th:href="@{/bangumis(typeNum=${bangumis.typeNum},status=3)}" class="moe-btn" th:classappend="${bangumis.status==3}?' is-active':''">已看</a>
+    </div>
+  </div>
+
+  <div class="moe-bangumi-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;">
+    <a th:each="bangumi,bStat : ${bangumis.items}"
+       th:href="${!#strings.isEmpty(bangumi.spec.url) ? bangumi.spec.url : 'https://www.bilibili.com/bangumi/media/md'+bangumi.spec.id}"
+       target="_blank" rel="noopener"
+       class="moe-card moe-bangumi-item"
+       th:title="${bangumi.spec.des}"
+       th:style="|animation-delay:${bStat.index * 60}ms; text-decoration:none; color:inherit; display:block; overflow:hidden;|">
+      <div style="aspect-ratio:116/160;border-radius:.6rem;overflow:hidden;background:rgba(127,127,127,.12);">
+        <img th:if="${!#strings.isEmpty(bangumi.spec.cover)}" th:src="${bangumi.spec.cover}" th:alt="${bangumi.spec.title}"
+             loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;"/>
+      </div>
+      <div style="padding:.5rem .2rem .2rem;">
+        <div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" th:text="${bangumi.spec.title}">番名</div>
+        <div style="font-size:.8rem;opacity:.75;display:flex;justify-content:space-between;margin-top:.2rem;">
+          <span th:text="${bangumi.spec.type}">类型</span>
+          <span th:text="${!#strings.isEmpty(bangumi.spec.score) ? '★ '+bangumi.spec.score : ''}"></span>
+        </div>
+        <div style="font-size:.75rem;opacity:.6;margin-top:.15rem;"
+             th:text="|${bangumi.spec.area} · ${bangumi.spec.totalCount}|">地区·进度</div>
+      </div>
+    </a>
+  </div>
+
+  <div th:if="${bangumis.items == null or #lists.isEmpty(bangumis.items)}" class="moe-card moe-empty">
+    这个条件下还没有番 (｡･ω･｡)
+  </div>
+
+  <div th:if="${bangumis.hasPrevious() || bangumis.hasNext()}" class="moe-card"
+       style="display:flex;justify-content:space-between;align-items:center;margin-top:1rem;">
+    <a th:if="${bangumis.hasPrevious()}" th:href="@{${bangumis.prevUrl}}" class="moe-btn">← 上一页</a>
+    <span th:text="|第 ${bangumis.page} / ${bangumis.totalPages} 页|">页码</span>
+    <a th:if="${bangumis.hasNext()}" th:href="@{${bangumis.nextUrl}}" class="moe-btn">下一页 →</a>
+  </div>
+
+  <style>
+    .moe-bangumi-item{transition:transform .25s ease, box-shadow .25s ease;}
+    .moe-bangumi-item:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.18);}
+    .moe-btn.is-active{outline:2px solid var(--moe-theme-color, #f9a8d4);}
+  </style>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,212 @@
+{
+ "basic": {
+  "values": {
+   "site_bg_mode": "all",
+   "name_navbar": "",
+   "theme_color": "#f9a8d4",
+   "signature": "路灯再亮，街角也是黑暗。",
+   "sidebar_swap": true,
+   "document_visible_title": "(*´∇｀*) 欢迎回来！",
+   "sidebar_column": "three",
+   "night_theme_color": "#5FB4E8",
+   "name_profile": "杨洋",
+   "hero_mode": "fullscreen",
+   "name_hero": "",
+   "hero_enable": true,
+   "default_theme": "auto",
+   "navbar_login_url": "/console",
+   "hero_video": "",
+   "hero_bg": "https://img.v2yy.com/random.php?album=1",
+   "site_bg": "https://img.v2yy.com/random.php?album=1",
+   "document_hidden_title": "(つ_<)~ 你去哪儿了！",
+   "blog_name": ""
+  },
+  "configVersion": 37
+ },
+ "loading": {
+  "values": {
+   "loading_text": "少女祈祷中...",
+   "load_progress": false
+  },
+  "configVersion": 37
+ },
+ "post": {
+  "values": {
+   "default_code_lang": "",
+   "heading_anim": true,
+   "code_pretty": "atom-one-dark",
+   "enable_reward": false,
+   "img_fold_height": 0,
+   "code_fold_line": 0,
+   "enable_lightbox": true,
+   "default_thumbnail": "https://img.v2yy.com/random.php?album=1",
+   "external_redirect_delay": 9,
+   "copy_explain": "",
+   "external_redirect_whitelist": "",
+   "enable_copyright": true,
+   "ol_hover_color": "#ff7eb3",
+   "external_redirect": false,
+   "enable_katex": false,
+   "enable_post_share": false
+  },
+  "configVersion": 37
+ },
+ "sidebar": {
+  "values": {
+   "notice_content": "",
+   "left_modules": [
+    {
+     "module": "toc"
+    },
+    {
+     "module": "profile"
+    },
+    {
+     "module": "recent"
+    },
+    {
+     "module": "tags"
+    }
+   ],
+   "quote_custom_list": [
+    {
+     "text": "生活明朗，万物可爱。",
+     "author": ""
+    },
+    {
+     "text": "愿你眼里有星辰，心中有暖阳。",
+     "author": ""
+    }
+   ],
+   "social_links": [],
+   "profile_location": "北京",
+   "quote_mode": "api_fallback",
+   "love_enable": false,
+   "mobile_modules": [
+    {
+     "module": "notice"
+    },
+    {
+     "module": "recent"
+    },
+    {
+     "module": "categories"
+    }
+   ],
+   "weather_gps": "true",
+   "music_enable": true,
+   "about_content": "",
+   "profile_signature": "",
+   "right_modules": [
+    {
+     "module": "notice"
+    },
+    {
+     "module": "love"
+    },
+    {
+     "module": "music"
+    },
+    {
+     "module": "weather"
+    }
+   ],
+   "quote_api_url": "https://v1.hitokoto.cn/",
+   "weather_city": "",
+   "tag_count": 20,
+   "recent_posts_count": 5,
+   "category_count": 8,
+   "music_type": "playlist",
+   "links_limit": 5,
+   "music_platform": "netease",
+   "links_sub_text": "",
+   "music_float": true,
+   "profile_avatar": "https://img.v2yy.com/i/2026/09/30/6abca867d1a89.jpg"
+  },
+  "configVersion": 37
+ },
+ "effects": {
+  "values": {
+   "effects_bg": "sakura",
+   "effects_bg_mode": "all",
+   "cursor_style": "Sakura",
+   "effects_move": "sakura",
+   "enable_pjax": true,
+   "effects_click": "heart",
+   "gray_mode": false
+  },
+  "configVersion": 37
+ },
+ "footer": {
+  "values": {
+   "powered_name": "一言即诺",
+   "theme_url": "",
+   "theme_name": "Moesora",
+   "powered_url": "https://v2yy.com",
+   "since": "2026-09-28"
+  },
+  "configVersion": 37
+ },
+ "comment": {
+  "values": {
+   "comment_upload_field": "file",
+   "comment_system": "moesora",
+   "comment_upload_header": "Authorization: Bearer 2|30DebxqDUWBBrpxX6ua9lGFX23hDvZRkvNCh829d",
+   "waline_server": "",
+   "comment_upload_resp": "data.url",
+   "twikoo_env_id": "",
+   "comment_upload_url": "https://img.v2yy.com/api/v1/upload"
+  },
+  "configVersion": 37
+ },
+ "custom": {
+  "values": {
+   "external_js_body": [],
+   "baidu_push": true,
+   "cdn_base": "https://gcore.jsdelivr.net",
+   "external_js_head": [],
+   "external_css": [],
+   "inline_css": "",
+   "inline_js_head": "",
+   "inline_js_body": ""
+  },
+  "configVersion": 37
+ },
+ "live2d": {
+  "values": {
+   "live2d_enable": false,
+   "live2d_scale": 1,
+   "live2d_position": "bottom-right",
+   "live2d_models": "八千代辉夜姬|https://gcore.jsdelivr.net/gh/7l4i8y1a4n3g8-7l4i8y1a4n3g8-1438-9748/Yachiyo@master/Yachiyo.model3.json\n"
+  },
+  "configVersion": 37
+ },
+ "wishes": {
+  "values": {
+   "wishes_subtitle": "写下你的心愿，留下你的故事",
+   "wishes_categories": "心愿,树洞,反馈"
+  },
+  "configVersion": 37
+ },
+ "seo": {
+  "values": {
+   "seo_enable": true,
+   "seo_rss_url": "/rss.xml",
+   "seo_description": "",
+   "seo_share_image": "",
+   "seo_base_url": "https://v2yy.com",
+   "seo_keywords": ""
+  },
+  "configVersion": 37
+ },
+ "pwa": {
+  "values": {
+   "pwa_enable": false,
+   "pwa_theme_color": "#f9a8d4",
+   "pwa_icon": "",
+   "pwa_icon_large": "",
+   "pwa_name": ""
+  },
+  "configVersion": 37
+ }
+}

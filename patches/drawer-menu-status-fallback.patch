@@ -1,0 +1,25 @@
+--- pristine/templates/modules/drawer.html	2026-09-10 02:10:18
++++ installed/templates/modules/drawer.html	2026-09-29 22:48:12
+@@ -47,9 +47,9 @@
+           <div th:each="item : ${primary.menuItems}" class="moe-dnav-item"
+                th:classappend="${item.children != null and !item.children.isEmpty()} ? ' has-sub' : ''">
+             <div class="moe-dnav-row"
+-                 th:with="nm=${item.status.displayName},
++                 th:with="nm=${item.status.displayName ?: item.spec.displayName},
+                           ikey=${((#strings.contains(nm,'首页') or #strings.containsIgnoreCase(nm,'home')) ? 'home' : ((#strings.contains(nm,'归档') or #strings.containsIgnoreCase(nm,'archive')) ? 'archive' : ((#strings.contains(nm,'分类') or #strings.containsIgnoreCase(nm,'categor')) ? 'folder' : ((#strings.contains(nm,'标签') or #strings.containsIgnoreCase(nm,'tag')) ? 'tag' : ((#strings.contains(nm,'瞬间') or #strings.contains(nm,'动态') or #strings.containsIgnoreCase(nm,'moment')) ? 'chat' : ((#strings.contains(nm,'留言') or #strings.containsIgnoreCase(nm,'message')) ? 'mail' : ((#strings.contains(nm,'友链') or #strings.containsIgnoreCase(nm,'link')) ? 'link' : ((#strings.contains(nm,'关于') or #strings.containsIgnoreCase(nm,'about')) ? 'heart' : 'sparkle'))))))))}">
+-              <a class="moe-dnav-link" th:href="${item.status.href}">
++              <a class="moe-dnav-link" th:href="${item.status.href ?: item.spec.href}">
+                 <span class="moe-dnav-ico"><th:block th:replace="~{modules/icons :: icon(${ikey})}"></th:block></span>
+                 <span class="moe-dnav-text" th:text="${nm}">菜单</span>
+               </a>
+@@ -60,8 +60,8 @@
+             </div>
+             <div class="moe-dnav-sub" th:if="${item.children != null and !item.children.isEmpty()}">
+               <a th:each="sub : ${item.children}" class="moe-dnav-sublink"
+-                 th:href="${sub.status.href}"
+-                 th:with="snm=${sub.status.displayName},
++                 th:href="${sub.status.href ?: sub.spec.href}"
++                 th:with="snm=${sub.status.displayName ?: sub.spec.displayName},
+                           sikey=${((#strings.contains(snm,'首页') or #strings.containsIgnoreCase(snm,'home')) ? 'home' : ((#strings.contains(snm,'归档') or #strings.containsIgnoreCase(snm,'archive')) ? 'archive' : ((#strings.contains(snm,'分类') or #strings.containsIgnoreCase(snm,'categor')) ? 'folder' : ((#strings.contains(snm,'标签') or #strings.containsIgnoreCase(snm,'tag')) ? 'tag' : ((#strings.contains(snm,'瞬间') or #strings.contains(snm,'动态') or #strings.containsIgnoreCase(snm,'moment')) ? 'chat' : ((#strings.contains(snm,'留言') or #strings.containsIgnoreCase(snm,'message')) ? 'mail' : ((#strings.contains(snm,'友链') or #strings.containsIgnoreCase(snm,'link')) ? 'link' : ((#strings.contains(snm,'关于') or #strings.containsIgnoreCase(snm,'about')) ? 'heart' : 'sparkle'))))))))}">
+                 <span class="moe-dnav-subico"><th:block th:replace="~{modules/icons :: icon(${sikey})}"></th:block></span>
+                 <span th:text="${snm}">子项</span>
