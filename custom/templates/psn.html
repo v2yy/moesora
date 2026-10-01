@@ -6,9 +6,21 @@
   <div class="moe-page-head moe-card moe-fancy-head">
     <div class="moe-halo"><b class="moe-halo-num" th:text="${psnGames != null} ? ${psnGames.total} : 0">0</b><small>款游戏</small></div>
     <div class="moe-fancy-head-text">
-      <h1 class="moe-page-title"><span class="moe-page-title-icon">🎮</span><span>我的 PSN 游戏库</span></h1>
+      <h1 class="moe-page-title"><span class="moe-page-title-icon">🎮</span><span>我的 PSN 游戏生涯</span></h1>
       <p class="moe-links-sub">数据来自 PlayStation Network ♪(´▽｀)</p>
     </div>
+  </div>
+
+  <!-- 数据源/同步状态条 -->
+  <div th:if="${psnGames != null and psnGames.status != null}" class="moe-card"
+       style="margin-bottom:1rem;padding:.6rem 1rem;font-size:.85rem;display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;align-items:center;">
+    <span th:text="${psnGames.status.sourceBadgeZh}">数据源</span>
+    <span>状态 <b th:text="${psnGames.status.stateZh}">—</b></span>
+    <span>最后同步 <b th:text="${psnGames.status.lastSuccessText}">—</b></span>
+    <span th:if="${psnGames.status.state == 'error'}" style="color:#e66;">
+      <th:block th:text="${psnGames.status.emptyHintZh}">失败说明</th:block>
+      <small style="opacity:.65;" th:text="'（技术原因: ' + ${psnGames.status.errorText} + '）'"></small>
+    </span>
   </div>
 
   <div th:if="${psnGames != null and psnGames.summary != null}" class="moe-card" style="margin-bottom:1rem;">
@@ -48,9 +60,9 @@
        th:if="${psnGames != null}">
     <div th:each="g,gStat : ${psnGames.items}" class="moe-card moe-bangumi-item"
          th:style="|animation-delay:${gStat.index * 60}ms; display:block; overflow:hidden;|">
-      <a th:href="${!#strings.isEmpty(g.spec.npGameId) ? 'https://store.playstation.com/en-us/product/' + g.spec.npGameId : 'javascript:;'}"
+      <a th:href="${!#strings.isEmpty(g.spec.npGameId) ? 'https://store.playstation.com/' + psnGames.storeRegion + '/product/' + g.spec.npGameId : 'javascript:;'}"
          target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;"
-         th:title="${g.spec.name}">
+         th:title="${g.spec.name + '（' + #strings.toUpperCase(psnGames.storeRegion) + ' 商店）'}">
         <div style="aspect-ratio:3/4;border-radius:.6rem;overflow:hidden;background:rgba(127,127,127,.12);">
           <img th:if="${!#strings.isEmpty(g.spec.coverUrl)}" th:src="${g.spec.coverUrl}" th:alt="${g.spec.name}"
                loading="lazy" referrerpolicy="no-referrer"
@@ -78,8 +90,18 @@
     </div>
   </div>
 
+  <!-- 空态三分：同步中 / 认证失败 / 确实为空 / 未配置 -->
   <div th:if="${psnGames == null or psnGames.items == null or #lists.isEmpty(psnGames.items)}" class="moe-card moe-empty">
-    还没有同步到数据 (｡･ω･｡) 去插件设置填好凭据后点一次同步吧～
+    <div th:if="${psnGames != null and psnGames.status != null}">
+      <div style="font-weight:600;margin-bottom:.4rem;"
+           th:text="${psnGames.status.stateZh} + '（' + ${psnGames.status.emptyReason} + '）'">状态</div>
+      <p th:text="${psnGames.status.emptyHintZh}">暂无数据。</p>
+      <p th:if="${psnGames.status.state == 'error' and !#strings.isEmpty(psnGames.status.errorText)}"
+         style="opacity:.7;font-size:.85rem;" th:text="'技术原因: ' + ${psnGames.status.errorText}"></p>
+    </div>
+    <div th:unless="${psnGames != null and psnGames.status != null}">
+      还没有同步到数据 (｡･ω･｡) 去插件设置填好凭据后点一次同步吧～
+    </div>
   </div>
 
   <div th:if="${psnGames != null and (psnGames.hasPrevious() or psnGames.hasNext())}" class="moe-card"
