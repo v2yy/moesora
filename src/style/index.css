@@ -350,6 +350,8 @@ textarea.moe-field-input{resize:vertical;min-height:44px}
 .moe-accent-3{--moe-accent:#6fa5ff}
 .moe-accent-4{--moe-accent:#a87fff}
 @keyframes moe-link-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* 修复:prefers-reduced-motion 下全局 animation:none 会冻结 fill:forwards 的入场动画,.moe-link-item 基础态 opacity:0 导致友链卡片隐身(不可见但可点)。动画被禁用时直接显示最终态 */
+@media (prefers-reduced-motion:reduce){.moe-link-item{opacity:1}}
 @keyframes moe-ring{to{transform:rotate(360deg)}}
 @keyframes moe-flow{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 @keyframes moe-bounce{0%,100%{transform:translateY(0)}30%{transform:translateY(-5px) scale(1.06)}60%{transform:translateY(1px)}}
