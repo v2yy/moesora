@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{modules/layout :: layout(content=~{::content}, hero=~{}, isHome=false)}">
+<body>
+<th:block th:fragment="content">
+  <th:block th:with="s=${psnGame.spec}, d=${psnDetail}">
+  <div class="moe-page-head moe-card moe-fancy-head">
+    <div class="moe-halo"><b class="moe-halo-num" th:text="${s.progressTotal}">0</b><small>座奖杯</small></div>
+    <div class="moe-fancy-head-text">
+      <h1 class="moe-page-title"><span class="moe-page-title-icon">🎮</span><span
+          th:text="${s.name}">游戏名</span></h1>
+      <p class="moe-links-sub">
+        <span th:text="${s.platform}">平台</span>
+        <th:block th:if="${!#strings.isEmpty(d.regionText)}">
+          · 区服 <span th:text="${d.regionText}">—</span>
+        </th:block>
+        <th:block th:if="${!#strings.isEmpty(d.gameVersionText)}">
+          · 奖杯版本 <span th:text="${d.gameVersionText}">—</span>
+        </th:block>
+        · 奖杯 <span th:text="${d.trophySummaryText}">—</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="moe-card" style="margin-bottom:1rem;padding:.6rem 1rem;font-size:.85rem;display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;">
+    <a th:href="${d.listUrl}" class="moe-btn">← 返回游戏生涯</a>
+    <a th:if="${d.storeSearchUrl != null}"
+       th:href="${d.storeSearchUrl}" target="_blank" rel="noopener" class="moe-btn"
+       th:title="|在${d.storeRegionLabel}商店搜索此游戏|">商店搜索 ↗</a>
+    <a th:href="${d.refreshUrl}" class="moe-btn" title="重新从数据源拉取本页详情">↻ 刷新数据</a>
+    <span style="opacity:.6;margin-left:auto;font-size:.78rem;"
+          th:text="|详情更新于 ${d.snapshotTimeText}|">—</span>
+  </div>
+
+  <!-- 总览条 -->
+  <div class="moe-card" style="margin-bottom:1rem;padding:1rem;">
+    <div style="display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;">
+      <div style="min-width:180px;flex:1;">
+        <div style="font-size:.85rem;opacity:.7;margin-bottom:.3rem;">完成度
+          <b th:text="|${s.progressEarned} / ${s.progressTotal} 座奖杯|">—</b></div>
+        <div style="background:rgba(127,127,127,.18);border-radius:6px;height:10px;overflow:hidden;">
+          <div style="height:100%;background:#79c142;border-radius:6px;"
+               th:style="|width:${s.progress}%;|"></div>
+        </div>
+      </div>
+      <div style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;" th:text="${s.progress} + '%'">0%</div><div style="font-size:.75rem;opacity:.6;">完成度</div></div>
+      <div style="text-align:center;"><div style="font-size:1.2rem;font-weight:700;" th:text="${d.playtimeText}">—</div><div style="font-size:.75rem;opacity:.6;">游玩时长</div></div>
+      <div style="text-align:center;" th:if="${!#strings.isEmpty(d.playCountText)}"><div style="font-size:1.2rem;font-weight:700;" th:text="${d.playCountText}">—</div><div style="font-size:.75rem;opacity:.6;">启动次数</div></div>
+      <div style="text-align:center;" th:if="${d.activeDaysText != '0'}"><div style="font-size:1.2rem;font-weight:700;" th:text="${d.activeDaysText}">—</div><div style="font-size:.75rem;opacity:.6;">有奖杯天数</div></div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:.8rem;font-size:.9rem;">
+      <span>💎 白金 <b th:text="${s.platinum}">0</b></span>
+      <span>🥇 金 <b th:text="${s.gold}">0</b></span>
+      <span>🥈 银 <b th:text="${s.silver}">0</b></span>
+      <span>🥉 铜 <b th:text="${s.bronze}">0</b></span>
+    </div>
+  </div>
+
+  <!-- 白金里程碑 -->
+  <div class="moe-card" style="margin-bottom:1rem;padding:.8rem 1rem;" th:if="${d.hasPlatinum}">
+    <div style="font-size:.95rem;"><span style="font-weight:700;">🎉 已白金</span>
+      <span th:if="${!#strings.isEmpty(d.platinumTrophyText)}" style="opacity:.75;font-size:.85rem;"
+            th:text="|　${d.platinumTrophyText}|"></span>
+      <span th:if="${!#strings.isEmpty(d.platinumDaysText)}" style="opacity:.75;font-size:.85rem;"
+            th:text="|　· 白金耗时 ${d.platinumDaysText} 天 · 首个奖杯 ${d.firstTrophyText}|"></span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:1rem;align-items:start;" class="moe-psn-detail2">
+    <!-- 左列：奖杯组明细 -->
+    <div>
+      <div class="moe-card" style="margin-bottom:1rem;" th:unless="${d.hasDetail}">
+        <h2 style="font-size:1.05rem;margin-bottom:.6rem;">🏆 奖杯详情</h2>
+        <div style="opacity:.7;font-size:.9rem;" th:if="${s.progressTotal > 0}">
+          逐奖杯明细暂时拉不到（数据源抽风或限流），上面是库里的汇总数据，稍后再试即可。
+        </div>
+        <div style="opacity:.7;font-size:.9rem;" th:unless="${s.progressTotal > 0}">
+          这款游戏没有奖杯数据（可能是 PC 版或无奖杯标题）。
+        </div>
+      </div>
+
+      <div class="moe-card" style="margin-bottom:1rem;" th:each="grp : ${d.groups}">
+        <h2 style="font-size:1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;">
+          <img th:if="${!#strings.isEmpty(grp.iconUrl)}" th:src="${grp.iconUrl}" alt=""
+               style="width:1.4em;height:1.4em;border-radius:4px;object-fit:cover;"
+               referrerpolicy="no-referrer"/>
+          <span th:text="${grp.name}">奖杯组</span>
+          <small style="opacity:.6;font-weight:400;" th:text="|${grp.earned}/${grp.total} · ${grp.percent}%|"></small>
+        </h2>
+        <div style="background:rgba(127,127,127,.18);border-radius:5px;height:6px;overflow:hidden;margin-bottom:.7rem;">
+          <div style="height:100%;background:#79c142;border-radius:5px;"
+               th:style="|width:${grp.percent}%;|"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem;">
+          <div th:each="t : ${grp.trophies}"
+               style="display:flex;gap:.45rem;align-items:center;padding:.4rem;border-radius:.5rem;background:rgba(127,127,127,.07);"
+               th:styleappend="${t.earned} ? '' : 'opacity:.45;filter:grayscale(.9);'"
+               th:title="${t.detail} + '（' + ${t.groupName} + '）'">
+            <img th:src="${t.iconUrl}" alt="" loading="lazy" referrerpolicy="no-referrer"
+                 style="width:32px;height:32px;border-radius:6px;object-fit:contain;flex:none;"/>
+            <div style="min-width:0;flex:1;">
+              <div style="font-size:.78rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
+                   th:text="${t.typeIcon} + ' ' + ${t.name}">奖杯</div>
+              <div style="font-size:.7rem;opacity:.7;display:flex;justify-content:space-between;">
+                <span th:text="${t.rateText}">—</span>
+                <span th:if="${t.earned}" th:text="${t.earnedText}">日期</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右列：稀有度 / 最稀有 / 游玩记录 -->
+    <div>
+      <div class="moe-card" style="margin-bottom:1rem;" th:if="${d.hasDetail and !d.bands.isEmpty()}">
+        <h2 style="font-size:1.05rem;margin-bottom:.6rem;">📊 稀有度分布（全球获得率）</h2>
+        <div style="display:flex;flex-direction:column;gap:.45rem;font-size:.85rem;">
+          <div th:each="b : ${d.bands}" style="display:flex;align-items:center;gap:.6rem;">
+            <span style="width:4.5em;opacity:.8;" th:text="${b.label}">档</span>
+            <div style="flex:1;background:rgba(127,127,127,.15);border-radius:4px;height:8px;overflow:hidden;">
+              <div style="height:100%;background:#6fa8ff;border-radius:4px;"
+                   th:style="|width:${b.sharePercent}%;|"></div>
+            </div>
+            <span style="width:5.5em;text-align:right;opacity:.75;"
+                  th:text="|${b.earned}/${b.total} · ${b.sharePercent}%|">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="moe-card" style="margin-bottom:1rem;" th:if="${!d.rarest.isEmpty()}">
+        <h2 style="font-size:1.05rem;margin-bottom:.6rem;">🔮 最稀有的奖杯</h2>
+        <div th:each="t : ${d.rarest}" style="display:flex;gap:.5rem;align-items:center;margin-bottom:.45rem;font-size:.85rem;">
+          <img th:src="${t.iconUrl}" alt="" loading="lazy" referrerpolicy="no-referrer"
+               style="width:26px;height:26px;border-radius:5px;object-fit:contain;flex:none;"/>
+          <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
+                th:text="${t.name} + '（' + ${t.groupName} + '）'">名</span>
+          <b style="color:#e6a23c;" th:text="${t.rateText}">—</b>
+        </div>
+      </div>
+
+      <div class="moe-card" style="margin-bottom:1rem;" th:if="${!d.playDays.isEmpty()}">
+        <h2 style="font-size:1.05rem;margin-bottom:.6rem;">⏱ 游玩记录
+          <small style="opacity:.55;font-weight:400;" th:text="|近 ${#lists.size(d.playDays)} 条|"></small></h2>
+        <div style="max-height:420px;overflow-y:auto;">
+          <div th:each="day : ${d.playDays}"
+               style="display:flex;align-items:center;gap:.6rem;font-size:.82rem;padding:.3rem 0;border-bottom:1px dashed rgba(127,127,127,.15);">
+            <span style="width:5.6em;opacity:.8;" th:text="${day.date}">日期</span>
+            <b th:text="${day.hoursText}">时长</b>
+            <span style="opacity:.6;margin-left:auto;text-align:right;"
+                  th:text="|${day.sessionCount} 次 · ${day.platformText}|">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="moe-card" style="font-size:.82rem;opacity:.85;margin-bottom:1rem;" th:if="${d.hasDetail}">
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;">
+          <span>首次游玩 <b th:text="${d.firstPlayedText}">—</b></span>
+          <span>最近游玩 <b th:text="${d.lastPlayedText}">—</b></span>
+        </div>
+      </div>
+
+      <div class="moe-card" style="font-size:.78rem;opacity:.65;word-break:break-all;">
+        <div>Title ID：<span th:text="${s.npGameId}">—</span></div>
+        <div>NP Communication ID：<span th:text="${s.npCommunicationId}">—</span></div>
+        <div>库同步于 <span th:text="${d.lastSyncText}">—</span>
+          · 奖杯数据更新 <span th:text="${d.trophyUpdatedText}">—</span></div>
+        <div style="margin-top:.3rem;opacity:.8;">逐奖杯明细来自第三方镜像（非官方），缓存 12 小时</div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 900px) {
+      .moe-psn-detail2 { grid-template-columns: 1fr !important; }
+    }
+  </style>
+  </th:block>
+</th:block>
+</body>
+</html>

@@ -60,9 +60,9 @@
        th:if="${psnGames != null}">
     <div th:each="g,gStat : ${psnGames.items}" class="moe-card moe-bangumi-item"
          th:style="|animation-delay:${gStat.index * 60}ms; display:block; overflow:hidden;|">
-      <a th:href="${!#strings.isEmpty(g.spec.npGameId) ? 'https://store.playstation.com/' + psnGames.storeRegion + '/product/' + g.spec.npGameId : 'javascript:;'}"
-         target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block;"
-         th:title="${g.spec.name + '（' + #strings.toUpperCase(psnGames.storeRegion) + ' 商店）'}">
+      <a th:href="${psnGames.routePath + '/game/' + g.metadata.name}"
+         style="text-decoration:none;color:inherit;display:block;"
+         th:title="|${g.spec.name} 的奖杯与游玩详情|">
         <div style="aspect-ratio:3/4;border-radius:.6rem;overflow:hidden;background:rgba(127,127,127,.12);">
           <img th:if="${!#strings.isEmpty(g.spec.coverUrl)}" th:src="${g.spec.coverUrl}" th:alt="${g.spec.name}"
                loading="lazy" referrerpolicy="no-referrer"

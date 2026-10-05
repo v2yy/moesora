@@ -12,7 +12,9 @@ cp "$HERE/custom/templates/modules/drawer.html" "$TARGET/templates/modules/drawe
 cp "$HERE/custom/templates/modules/seo.html"   "$TARGET/templates/modules/seo.html"
 cp "$HERE/custom/templates/bangumis.html"       "$TARGET/templates/bangumis.html"
 cp "$HERE/custom/templates/psn.html"            "$TARGET/templates/psn.html"
+cp "$HERE/custom/templates/psn_game.html"       "$TARGET/templates/psn_game.html"
 cp "$HERE/custom/templates/modules/head.html"   "$TARGET/templates/modules/head.html"
+cp "$HERE/custom/templates/modules/libs.html"   "$TARGET/templates/modules/libs.html"
 
 # CSS patch: reduced-motion 下友链卡片不可见修复（.moe-link-item 入场动画 fill:forwards 被全局 animation:none 冻结在 opacity:0）
 python3 - "$TARGET/templates/assets/dist/moesora.css" <<'PYEOF'
