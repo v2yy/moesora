@@ -1,6 +1,6 @@
 /*!
  * Moesora 内置评论（直接调用 Halo 公开评论 API）
- * 游客填 昵称(输QQ自动取昵称) + 手机号 + 邮箱 即可评论；头像用 cravatar；表情走 CDN；可贴图（图床/内嵌）。
+ * 游客填 昵称(输QQ自动取昵称) + 邮箱 即可评论（手机号选填）；头像用 cravatar；表情走 CDN；可贴图（图床/内嵌）。
  * 需在 Halo 后台「评论设置」开启允许匿名/自定义账号评论。可被 Pjax 重复调用（幂等）。
  */
 (function () {
@@ -205,7 +205,7 @@
           '<div class="moe-cmt-fields">' +
             '<input class="moe-cmt-input" data-role="nickname" type="text" maxlength="32" placeholder="昵称 *" value="' + esc(a.nickname || "") + '">' +
             '<input class="moe-cmt-input" data-role="qq" type="text" inputmode="numeric" maxlength="13" placeholder="QQ号（选填，用于头像）" value="' + esc(a.qq || "") + '">' +
-            '<input class="moe-cmt-input" data-role="phone" type="tel" inputmode="numeric" maxlength="11" placeholder="手机号 *" value="' + esc(a.phone || "") + '">' +
+            '<input class="moe-cmt-input" data-role="phone" type="tel" inputmode="numeric" maxlength="11" placeholder="手机号（选填）" value="' + esc(a.phone || "") + '">' +
             '<input class="moe-cmt-input" data-role="email" type="email" maxlength="64" placeholder="邮箱 *" value="' + esc(a.email || "") + '">' +
           '</div>' +
           '<textarea class="moe-cmt-textarea" data-role="text" rows="4" placeholder="写下你的评论…"></textarea>' +
@@ -239,8 +239,7 @@
   function validate(f) {
     if (!f.nickname) return "请填写昵称";
     if (f.qq && !/^\d{5,13}$/.test(f.qq)) return "QQ号格式不正确";
-    if (!f.phone) return "请填写手机号";
-    if (!/^1[3-9]\d{9}$/.test(f.phone)) return "手机号格式不正确";
+    if (f.phone && !/^1[3-9]\d{9}$/.test(f.phone)) return "手机号格式不正确";
     if (!f.email) return "请填写邮箱";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) return "邮箱格式不正确";
     if (!f.text) return "评论内容不能为空";
